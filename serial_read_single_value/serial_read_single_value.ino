@@ -1,7 +1,7 @@
 /*
-  Example of use of the SerialRecord libray to send multiple values between the Arduino and the
-  Arduino IDE, a Processing Sketch, or another application connected to the other end of the
-  serial connection.
+  Example of use of the SerialRecord libray to send multiple values between the
+  Arduino and the Arduino IDE, a Processing Sketch, or another application
+  connected to the other end of the serial connection.
 
   Copyright (C) 2020-2022 Oliver Steele
 
@@ -21,38 +21,14 @@
 
 #include "SerialRecord.h"
 
-SerialValueReader reader(2); // Change this number to the number of values you want to receive
+SerialValueReader reader;
 
-void setup()
-{
+void setup() {
   Serial.begin(9600);
   pinMode(13, OUTPUT);
-  pinMode(9, OUTPUT);
 }
 
-void loop()
-{
+void loop() {
   reader.getSerialData();
-
-  // add your code here
-  // use elements in the values array
-  // values[0]
-  // values[1]
-  if (reader.values[0] == 1)
-  {
-    digitalWrite(13, HIGH);
-  }
-  else
-  {
-    digitalWrite(13, LOW);
-  }
-
-  if (reader.values[1] == 1)
-  {
-    tone(9, reader.values[2]);
-  }
-  else
-  {
-    noTone(9);
-  }
+  digitalWrite(13, reader.value);
 }

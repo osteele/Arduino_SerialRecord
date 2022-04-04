@@ -1,6 +1,7 @@
 class SerialValueReader {
  public:
   const int size;
+  int value;
   int *values;
 
   SerialValueReader(int count = 1)
@@ -35,6 +36,7 @@ class SerialValueReader {
             values[m_ix++] = m_accum;
           // fall through
           case FIELD_START:
+            value = values[0];
             if (m_ix < size) {
               Serial.print(
                   "Error: SerialValueReader received too few values: ");
