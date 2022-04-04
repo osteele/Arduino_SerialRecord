@@ -1,13 +1,12 @@
-class SerialValueReader {
+class SerialRecord {
  public:
   const int size;
-  int value;
   int *values;
 
-  SerialValueReader(int count = 1)
+  SerialRecord(int count = 1)
       : size(count), values(new int[count]), m_buffer(new int[count]) {}
 
-  const int get(int index) {
+  const int &get(int index = 0) {
     if (0 <= index && index < size) {
       return values[index];
     } else {
@@ -24,34 +23,40 @@ class SerialValueReader {
     }
   }
 
-  const int operator[](int index) { return get(index); }
+  int set(int value) { set(0, value); }
 
-  // receive serial data from Processing
-  void getSerialData() {
+  const int &operator[](int index) { return get(index); }
+
+  // receive serial data
+  void read() {
     while (Serial.available()) {
       char c = Serial.read();
       if (c == '\n') {
+        firstLine = false;
         switch (m_readState) {
           case IN_FIELD:
-            values[m_ix++] = m_accum;
+            m_buffer[m_ix++] = m_accum;
           // fall through
           case FIELD_START:
-            value = values[0];
             if (m_ix < size) {
               Serial.print(
                   "Error: SerialValueReader received too few values: ");
               Serial.print(m_ix);
-              Serial.print(" instead of ");
+              Serial.print("expected ");
               Serial.println(size);
             }
+            // Go ahead and copy the buffered values to the values array, even
+            // if there is the wrong number of them. This is more convenient for
+            // incremental development.
+            memcpy(values, m_buffer, size * sizeof values[0]);
             break;
         }
         m_readState = LINE_START;
       } else {
         switch (m_readState) {
           case LINE_START:
-            if (c == '!')  // commands
-            {
+            if (c == ' ' || c == '\t') break;
+            if (c == '!') {  // commands
               m_readState = COMMAND;
               break;
             }
@@ -76,8 +81,9 @@ class SerialValueReader {
                 // TODO: warn on overflow
                 break;
               case ' ':
+              case '\t':
               case ',':  // end of field
-                values[m_ix++] = m_accum;
+                m_buffer[m_ix++] = m_accum;
                 m_readState = FIELD_START;
                 break;
               default:
@@ -91,18 +97,25 @@ class SerialValueReader {
             switch (c) {
               case 'e':
                 send();
+                m_readState = SKIP_LINE;
+                break;
+              case ' ':
+              case '\t':
                 break;
               default:
                 reportInvalidCharacter(
                     "Error: SerialValueReader received unknown command: ", c);
+                m_readState = SKIP_LINE;
             }
-            m_readState = SKIP_LINE;
             break;
         }
       }
     }
   }
+
   void reportInvalidCharacter(char *message, char c) {
+    if (firstLine) return;
+
     Serial.print(message);
     Serial.print('\'');
     Serial.print(c);
@@ -121,9 +134,15 @@ class SerialValueReader {
     Serial.println();
   }
 
+  void send(int value) {
+    set(value);
+    send();
+  }
+
  private:
   int m_ix = 0;
   int m_accum = 0;
+  bool firstLine = true;
   int *m_buffer;
 
   enum ReadState {

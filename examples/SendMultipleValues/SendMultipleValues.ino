@@ -21,14 +21,20 @@
 
 #include "SerialRecord.h"
 
-SerialValueReader reader;
+// Change this number to send a different number of values
+SerialRecord writer(2);
 
 void setup() {
   Serial.begin(9600);
-  pinMode(13, OUTPUT);
+  pinMode(6, INPUT);
 }
 
 void loop() {
-  reader.getSerialData();
-  digitalWrite(13, reader.value);
+  int sensorValue = analogRead(6);
+
+  writer.values[0] = millis();
+  writer.values[1] = sensorValue;
+  writer.send();
+
+  delay(50);
 }
