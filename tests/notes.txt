@@ -1,0 +1,22 @@
+Manual tests:
+
+Setup: Upload ReceiveMultipleValues
+
+Use the Arduino Serial Monitor to send each of these followed by `!e`; verify
+proper return value:
+
+1,2
+3 4
+5;6
+01 002
+123,456
+
+Send each of these; verify appropriate error message.
+(This should happen instantly; no need for `!e`.)
+
+1
+1,2,3
+1x3,2
+1,2x3
+
+Upload SendIndexTooLarge. Verify that it reports and error.

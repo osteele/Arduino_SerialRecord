@@ -18,7 +18,9 @@ class SerialRecord {
     if (0 <= index && index < size) {
       return values[index];
     } else {
-      Serial.println("Error: SerialValueReader.get index out of bounds");
+      Serial.println("Error: SerialValueReader index out of bounds (" +
+                     String(index) +
+                     (index < 0 ? " < 0)" : +" >= " + String(size) + ")"));
       sentinel = -1;
       return sentinel;
     }
@@ -48,11 +50,9 @@ class SerialRecord {
           // fall through
           case FIELD_START:
             if (m_ix < size) {
-              Serial.print(
-                  "Error: SerialValueReader received too few values: ");
-              Serial.print(m_ix);
-              Serial.print("expected ");
-              Serial.println(size);
+              Serial.println(
+                  "Error: SerialValueReader received too few values: " +
+                  String(m_ix) + " < " + String(size));
             }
             // Go ahead and copy the buffered values to the values array, even
             // if there is the wrong number of them. This is more convenient for
@@ -91,6 +91,7 @@ class SerialRecord {
                 break;
               case ' ':
               case '\t':
+              case ';':
               case ',':  // end of field
                 m_buffer[m_ix++] = m_accum;
                 m_readState = FIELD_START;
