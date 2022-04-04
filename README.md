@@ -6,6 +6,12 @@ The library transmits the values in ASCII. Each record is a sequence of ASCII
 representations of numbers, separated by a comma and terminated by a newline.
 This is the format used by the Arduino IDE Serial Plotter tool.
 
+This library can be used in conjunction with the [Processing
+SerialRecord](https://github.com/osteele/Processing_SerialRecord) library on
+Processing, but does not require it.
+
+![](docs/screenshot.png "Screenshot")
+
 ## Design Goals
 
 - Easy for novice programmers to configure and use
@@ -14,12 +20,26 @@ This is the format used by the Arduino IDE Serial Plotter tool.
 
 ### Non-goals
 
-- Efficiency. This use ASCII, which is easy to inspect but computationally expensive to
-  read and write, and requires more bandwidth than a binary representation.
-- Flexibility. All records must have the same number of values. This makes it
-  possible to detect errors in code that uses the library, but is not
-  appropriate to all communications. If you need more flexibility, this is not
-  the library for you. (See the Alternatives section below.)
+- Efficiency. The library uses an ASCII representation of numbers. This is easy
+  to visually inspect without tools, but it is computationally expensive to read
+  and write, and requires more bandwidth than a binary representation.
+- Flexibility. All records must have the same number of values; only integers
+  are supported. This makes it possible to detect errors in code that uses the
+  library, but is not appropriate to all communications. If you need more
+  flexibility, this is not the library for you. (See the Alternatives section
+  below.)
+
+## Features
+
+- Send an "!e" to the sketch to send received the values array back to the serial
+  port. (The matching Processing library can do this periodically.)
+- Attempting to read an array position that is out of bounds will print an error
+  to the serial port and return the value -1.
+- If a record contains too many values or too few, and an error is printed to
+  the serial port. (The matching Processing library can relay this and other
+  errors to the Processing console.)
+- If a received line cannot be parsed as a series of integers, a warning is
+  printed to the serial port.
 
 ## Installation
 
@@ -33,6 +53,9 @@ the same name, your computer may be set to automatically decompress and delete
 downloaded ZIP files. In that case, instead of step 2 you can move the folder
 into the Arduino/Libraries folder in your home directory, and then restart the
 Arduino IDE.
+
+The next time you start the Arduino IDE, you will find examples in the File >
+Examples > SerialRecord submenu.
 
 ## Motivation
 
@@ -53,15 +76,6 @@ removed, or rearranged value, and that debugging the resulting errors did not
 contribute to the learning objectives for this particular course. (The problem
 is even worse when they work from example code that optimizes for line count,
 such that the last two lines are combined to `Serial.print(value3);`.)
-
-## Features
-
-- Send an 'e' to the sketch to send received the values array back to the serial
-  port.
-- Attempting to read an array position that is out of bounds will print an error
-  to the serial port and return the value -1.
-- If a record contains too many values, it is ignored, and an error is printed
-  to the serial port.
 
 ## Alternatives
 

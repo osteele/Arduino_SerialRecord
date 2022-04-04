@@ -33,10 +33,6 @@ void setup() {
 void loop() {
   reader.read();
 
-  // add your code here
-  // use elements in the values array
-  // values[0]
-  // values[1]
   if (reader.values[0] > 512) {
     digitalWrite(13, HIGH);
   } else {
