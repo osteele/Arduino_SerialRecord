@@ -1,22 +1,23 @@
 /*
-  Example of use of the SerialRecord libray to send multiple values between the
-  Arduino and the Arduino IDE, a Processing Sketch, or another application
-  connected to the other end of the serial connection.
+  SendMultipleValues
 
-  Copyright (C) 2020-2022 Oliver Steele
+  This sketch repeatedly sends a record that contains two values:
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  - The first value is the value of `millis()`, modulo 32768.
+  - The second value is the analog value that is read from pin 9. If you attach
+    a potentiometer to that pin, you can control this value by moving the pot.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  This sketch pairs well with the RecieveMultipleValues example from the
+  [Processing SerialRecord] library.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Things to try:
+  - Connect a second potentiometer to the Arduino, and send the values from both
+    potentiometers.
+  - Send the value from another sensor, such as temperature or proximity.
+
+  by Oliver Steele, 2020-2022
+
+  This example code is in the public domain.
 */
 
 #include "SerialRecord.h"
@@ -32,8 +33,8 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(6);
 
-  writer.values[0] = millis();
-  writer.values[1] = sensorValue;
+  writer[0] = millis() % 32768;
+  writer[1] = sensorValue;
   writer.send();
 
   delay(50);

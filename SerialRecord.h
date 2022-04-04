@@ -1,3 +1,10 @@
+/* SerialRecord — an Arduino library for sending and receiving data over a
+ * serial connection. Created by Oliver Steele, 2020-2022. Available under the
+ * GNU LGPL license.
+ */
+#ifndef ClassRecord_h
+#define ClassRecord_h
+
 class SerialRecord {
  public:
   const int size;
@@ -6,12 +13,14 @@ class SerialRecord {
   SerialRecord(int count = 1)
       : size(count), values(new int[count]), m_buffer(new int[count]) {}
 
-  const int &get(int index = 0) {
+  int &get(int index = 0) {
+    static int sentinel;
     if (0 <= index && index < size) {
       return values[index];
     } else {
       Serial.println("Error: SerialValueReader.get index out of bounds");
-      return -1;
+      sentinel = -1;
+      return sentinel;
     }
   }
 
@@ -25,7 +34,7 @@ class SerialRecord {
 
   int set(int value) { set(0, value); }
 
-  const int &operator[](int index) { return get(index); }
+  int &operator[](int index) { return get(index); }
 
   // receive serial data
   void read() {
@@ -154,3 +163,5 @@ class SerialRecord {
   };
   ReadState m_readState = LINE_START;
 };
+
+#endif  // ClassRecord_h

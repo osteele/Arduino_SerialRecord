@@ -1,22 +1,21 @@
 /*
-  Example of use of the SerialRecord libray to send multiple values between the
-  Arduino and the Arduino IDE, a Processing Sketch, or another application
-  connected to the other end of the serial connection.
+  SendSingleValue
 
-  Copyright (C) 2020-2022 Oliver Steele
+  This sketch repeatedly sends a record that contains a single value. The value
+  is the value of `millis()`, modulo 32768.
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  This sketch pairs well with the ReceiveSingleValue example from the
+  [Processing SerialRecord] library.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  You can also use the Serial Monitor to inspect the values that the sketch
+  sends to the serial port.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Things to try:
+  - Connect a potentiometer to the Arduino, and send its value instead.
+
+  by Oliver Steele, 2020-2022
+
+  This example code is in the public domain.
 */
 
 #include "SerialRecord.h"
@@ -26,7 +25,7 @@ SerialRecord writer;
 void setup() { Serial.begin(9600); }
 
 void loop() {
-  int value = millis();
+  int value = millis() % 32768;
   writer.send(value);
 
   delay(50);

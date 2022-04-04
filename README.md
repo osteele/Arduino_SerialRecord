@@ -7,10 +7,12 @@ representations of numbers, separated by a comma and terminated by a newline.
 This is the format used by the Arduino IDE Serial Plotter tool.
 
 This library can be used in conjunction with the [Processing
-SerialRecord](https://github.com/osteele/Processing_SerialRecord) library on
+SerialRecord] library on
 Processing, but does not require it.
 
 ![](docs/screenshot.png "Screenshot")
+
+[Processing SerialRecord]: https://github.com/osteele/Processing_SerialRecord
 
 ## Design Goals
 
@@ -56,6 +58,67 @@ Arduino IDE.
 
 The next time you start the Arduino IDE, you will find examples in the File >
 Examples > SerialRecord submenu.
+
+## Examples
+
+### SendSingleValue
+
+This sketch repeatedly sends a record that contains a single value. The value is
+the value of `millis()`, modulo 32768.
+
+This sketch pairs well with the ReceiveSingleValue example from the [Processing
+SerialRecord] library.
+
+You can also use the Serial Monitor to inspect the values that the sketch sends
+to the serial port.
+
+Things to try:
+
+- Connect a potentiometer to the Arduino, and send its value instead.
+
+### SendMultipleValues
+
+This sketch repeatedly sends a record that contains two values:
+
+- The first value is the value of `millis()`, modulo 32768.
+- The second value is the analog value that is read from pin 9. If you attach a
+  potentiometer to that pin, you can control this value by moving the pot.
+
+This sketch pairs well with the RecieveMultipleValues example from the
+[Processing SerialRecord] library.
+
+Things to try:
+
+- Connect a second potentiometer to the Arduino, and send the values from
+  both potentiometers.
+- Send the value from another sensor, such as temperature or proximity.
+
+### ReceiveSingleValue
+
+This sketch repeatedly receives a record that contains a single value, and uses
+it to control the builtin LED. The value should be 0 or 1.
+
+This sketch pairs well with the SendSingleValue example from the [Processing
+SerialRecord] library.
+
+You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
+into the text area at the top, and press "Send".
+
+### ReceiveMultipleValues
+
+This sketch repeatedly receives a record that contains two values. Both values
+should be in the range 0…1023:
+
+- The first value controls the builtin LED. The LED is turned on if the value is
+  in the upper half of the range (512…1023).
+- The second value controls a buzzer attached to pin 9. If the value is 0, the
+  buzzer is silenced; otherwise, it plays a tone at the specified frequency.
+
+This sketch pairs well with the SendMultipleValues example from the [Processing
+SerialRecord] library.
+
+You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
+into the text area at the top, and press "Send".
 
 ## Motivation
 

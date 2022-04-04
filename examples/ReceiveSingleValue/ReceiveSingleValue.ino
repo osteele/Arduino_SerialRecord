@@ -1,22 +1,23 @@
 /*
-  Example of use of the SerialRecord libray to send multiple values between the
-  Arduino and the Arduino IDE, a Processing Sketch, or another application
-  connected to the other end of the serial connection.
+  ReceiveSingleValue
 
-  Copyright (C) 2020-2022 Oliver Steele
+  This sketch repeatedly receives a record that contains two values. Both values
+  should be in the range 0…1023:
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
+  - The first value controls the builtin LED. The LED is turned on if the value
+    is in the upper half of the range (512…1023).
+  - The second value controls a buzzer attached to pin 9. If the value is 0, the
+    buzzer is silenced; otherwise, it plays a tone at the specified frequency.
 
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
+  This sketch pairs well with the SendMultipleValues example from the
+  [Processing SerialRecord] library.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  You can also interact with this sketch from the Serial Monitor. Enter `0` or
+  `1` into the text area at the top, and press "Send".
+
+  by Oliver Steele, 2020-2022
+
+  This example code is in the public domain.
 */
 
 #include "SerialRecord.h"
@@ -25,10 +26,10 @@ SerialRecord reader;
 
 void setup() {
   Serial.begin(9600);
-  pinMode(13, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 }
 
 void loop() {
   reader.read();
-  digitalWrite(13, reader.get());
+  digitalWrite(LED_BUILTIN, reader.get());
 }
