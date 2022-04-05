@@ -28,7 +28,7 @@ class SerialRecord {
   }
 
   /** Sets the value at the given index. */
-  int set(int index, int value) {
+  void set(int index, int value) {
     if (0 <= index && index < size) {
       values[index] = value;
     } else {
@@ -37,7 +37,7 @@ class SerialRecord {
   }
 
   /** Returns the first value. */
-  int set(int value) { set(0, value); }
+  void set(int value) { set(0, value); }
 
   /** References the value at the given index. */
   int &operator[](int index) { return get(index); }

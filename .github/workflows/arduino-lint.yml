@@ -1,0 +1,11 @@
+name: Arduino Lint
+
+on: [pull_request, push, workflow_dispatch]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          rm -rf scripts tests
+      - uses: arduino/arduino-lint-action@v1

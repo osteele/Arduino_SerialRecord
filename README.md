@@ -1,5 +1,8 @@
 # Serial Record Library for Arduino
 
+[![Arduino Lint](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml)
+[![Compile Examples](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml)
+
 Library to send and read single or multiple values to and from the serial port.
 
 The library transmits the values in ASCII. Each record is a sequence of ASCII
