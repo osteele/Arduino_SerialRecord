@@ -6,13 +6,12 @@ The library transmits the values in ASCII. Each record is a sequence of ASCII
 representations of numbers, separated by a comma and terminated by a newline.
 This is the format used by the Arduino IDE Serial Plotter tool.
 
-This library can be used in conjunction with the [Processing
-SerialRecord] library on
-Processing, but does not require it.
+This library can be used in conjunction with the [Processing SerialRecord]
+library for [Processing](https://processing.org), but does not require it.
 
 ![](docs/screenshot.png "Screenshot")
 
-[Processing SerialRecord]: https://github.com/osteele/Processing_SerialRecord
+[Processing SerialRecord]: https://osteele.github.io/Processing_SerialRecord/
 
 ## Design Goals
 
@@ -45,10 +44,11 @@ Processing, but does not require it.
 
 ## Installation
 
-1. Download a ZIP archive of this repository: Click on the green Code button at
-   the top of this page, and press "Download ZIP".
+1. Download a ZIP archive of this repository from
+   <https://assets.osteele.com.s3.amazonaws.com/arduino/SerialRecord.zip>. Note:
+   You do not need to decompress this archive file.
 2. In the Arduino IDE, select the "Sketch > Include Library > Add .ZIP Library…"
-   menu item, and select the downloaded ZIP file.
+   menu item. Select the downloaded ZIP file.
 
 If you can't find the downloaded zip file but you can instead find a folder with
 the same name, your computer may be set to automatically decompress and delete
@@ -60,6 +60,10 @@ The next time you start the Arduino IDE, you will find examples in the File >
 Examples > SerialRecord submenu.
 
 ## Examples
+
+Once you install the library, these examples are available in the File >
+Examples > SerialRecord submenu. You can also review them
+[here](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
 
 ### SendSingleValue
 
