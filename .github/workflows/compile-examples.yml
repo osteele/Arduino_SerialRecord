@@ -3,21 +3,16 @@ name: Compile Examples
 on: [pull_request, push, workflow_dispatch]
 
 jobs:
-  build:
+  compile:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: arduino/compile-sketches@v1
         with:
-          libraries: |
-            # Install the library from the local path.
-            - source-path: ./
-            # Additional library dependencies can be listed here.
-            # See: https://github.com/arduino/compile-sketches#libraries
           enable-warnings-report: true
-      - name: Save sketches report as workflow artifact
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
+        if: ${{ !env.ACT }}
         with:
-          name: compilation-log
+          name: compile-sketches
           path: sketches-reports
           if-no-files-found: error
