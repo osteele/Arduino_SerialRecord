@@ -4,8 +4,8 @@
   This sketch repeatedly receives a record that contains a single value, and
   uses it to control the builtin LED. The value should be 0 or 1.
 
-  This sketch pairs well with the SendSingleValue example from the [Processing
-  SerialRecord] library.
+  This sketch pairs well with the SendSingleValue example from the Processing
+  SerialRecord library <https://osteele.github.io/Processing_SerialRecord/>.
 
   You can also interact with this sketch from the Serial Monitor. Enter
   `100,200` into the text area at the top, and press "Send". Then enter `!e` to

@@ -8,7 +8,8 @@
   receive, is called "full duplex".)
 
   This sketch pairs well with the SendReceiveMultipleValues example from the
-  [Processing SerialRecord] library.
+  Processing SerialRecord library
+  <https://osteele.github.io/Processing_SerialRecord/>.
 
   You can also interact with this sketch from the Serial Monitor. Enter
   `100,200` into the text area at the top, and press "Send".

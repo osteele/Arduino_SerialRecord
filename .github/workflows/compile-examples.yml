@@ -6,11 +6,14 @@ jobs:
   compile:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: arduino/compile-sketches@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Compile Sketches
+        uses: arduino/compile-sketches@v1
         with:
           enable-warnings-report: true
-      - uses: actions/upload-artifact@v2
+      - name: Upload compilation results
+        uses: actions/upload-artifact@v2
         if: ${{ !env.ACT }}
         with:
           name: compile-sketches

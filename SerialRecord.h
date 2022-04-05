@@ -11,7 +11,10 @@ class SerialRecord {
   int *values;
 
   SerialRecord(int count = 1)
-      : size(count), values(new int[count]), m_buffer(new int[count]) {}
+      : size(count),
+        values(new int[count]),
+        m_buffer(new int[count]),
+        m_fieldNames(new String[size]) {}
 
   /** Returns the value at the given index. */
   int &get(int index = 0) {
@@ -41,6 +44,15 @@ class SerialRecord {
 
   /** References the value at the given index. */
   int &operator[](int index) { return get(index); }
+
+  void setFieldName(int index, String name) {
+    if (0 <= index && index < size) {
+      m_fieldNames[index] = name;
+    } else {
+      Serial.println(
+          "Error: SerialValueReader.setFieldName index out of bounds");
+    }
+  }
 
   /** Receive serial data. Returns true if a new record was received. */
   bool read() {
@@ -146,6 +158,10 @@ class SerialRecord {
       if (i > 0) {
         Serial.print(',');
       }
+      if (m_fieldNames[i].length() > 0) {
+        Serial.print(m_fieldNames[i]);
+        Serial.print(':');
+      }
       Serial.print(values[i]);
     }
     Serial.println();
@@ -161,6 +177,7 @@ class SerialRecord {
   int m_accum = 0;
   bool firstLine = true;
   int *m_buffer;
+  String *m_fieldNames;
 
   enum ReadState {
     LINE_START,

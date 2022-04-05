@@ -10,7 +10,8 @@
     buzzer is silenced; otherwise, it plays a tone at the specified frequency.
 
   This sketch pairs well with the SendMultipleValues example from the
-  [Processing SerialRecord] library.
+  Processing SerialRecord library
+  <https://osteele.github.io/Processing_SerialRecord/>.
 
   You can also interact with this sketch from the Serial Monitor. Enter `0` or
   `1` into the text area at the top, and press "Send". Then enter `!e` to

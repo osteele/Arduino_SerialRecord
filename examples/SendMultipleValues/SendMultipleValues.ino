@@ -8,7 +8,8 @@
     a potentiometer to that pin, you can control this value by moving the pot.
 
   This sketch pairs well with the RecieveMultipleValues example from the
-  [Processing SerialRecord] library.
+  Processing SerialRecord library
+  <https://osteele.github.io/Processing_SerialRecord/>.
 
   Things to try:
   - Connect a second potentiometer to the Arduino, and send the values from both
@@ -33,11 +34,11 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(6);
 
-  writer[0] = millis() % 32768;
+  writer[0] = millis() % 1024;
   writer[1] = sensorValue;
   writer.send();
 
-  // This delay slows down the loop. The connected computer can become sluggish
-  // if it has to receive data at too high a rate.
+  // This delay slows down the loop. This can make it easier to debug the
+  // program.
   delay(10);
 }

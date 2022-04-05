@@ -5,7 +5,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Remove undistributed directories
+        run: |
           rm -rf scripts tests
-      - uses: arduino/arduino-lint-action@v1
+      - name: Arduino Lint
+        uses: arduino/arduino-lint-action@v1

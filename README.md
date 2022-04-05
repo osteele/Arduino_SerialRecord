@@ -147,6 +147,13 @@ This sketch pairs well with the SendReceiveMultipleValues example from the
 You can also interact with this sketch from the Serial Monitor. Enter `100,200`
 into the text area at the top, and press "Send".
 
+### SendFieldNames
+
+This sketch is similar to SendMultipleValues, except that it also includes
+field names in the strings that it sends. These are displayed in the Serial
+Monitor and the Serial Console, but the Processing SerialRecord library
+igonores them.
+
 ## Motivation
 
 This library was intended as a replacement for the manual use of chains of:

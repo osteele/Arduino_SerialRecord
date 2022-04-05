@@ -5,7 +5,8 @@
   is the value of `millis()`, modulo 32768.
 
   This sketch pairs well with the ReceiveSingleValue example from the
-  [Processing SerialRecord] library.
+  Processing SerialRecord library
+  <https://osteele.github.io/Processing_SerialRecord/>.
 
   You can also use the Serial Monitor to inspect the values that the sketch
   sends to the serial port.
@@ -25,10 +26,10 @@ SerialRecord writer;
 void setup() { Serial.begin(9600); }
 
 void loop() {
-  int value = millis() % 32768;
+  int value = millis() % 1024;
   writer.send(value);
 
-  // This delay slows down the loop. The connected computer can become sluggish
-  // if it has to receive data at too high a rate.
-  delay(50);
+  // This delay slows down the loop. This can make it easier to debug the
+  // program.
+  delay(10);
 }
