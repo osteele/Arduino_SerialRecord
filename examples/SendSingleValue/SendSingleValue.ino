@@ -28,5 +28,7 @@ void loop() {
   int value = millis() % 32768;
   writer.send(value);
 
+  // This delay slows down the loop. The connected computer can become sluggish
+  // if it has to receive data at too high a rate.
   delay(50);
 }

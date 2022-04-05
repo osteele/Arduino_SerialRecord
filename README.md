@@ -67,14 +67,15 @@ Examples > SerialRecord submenu. You can also review them
 
 ### SendSingleValue
 
-This sketch repeatedly sends a record that contains a single value. The value is
-the value of `millis()`, modulo 32768.
+This sketch repeatedly sends a record that contains a single value.
 
-This sketch pairs well with the ReceiveSingleValue example from the [Processing
+The sketch pairs well with the ReceiveSingleValue example from the [Processing
 SerialRecord] library.
 
 You can also use the Serial Monitor to inspect the values that the sketch sends
 to the serial port.
+
+This sketch is no different from calling `Serial.println(value)`.
 
 Things to try:
 
@@ -91,6 +92,9 @@ This sketch repeatedly sends a record that contains two values:
 This sketch pairs well with the RecieveMultipleValues example from the
 [Processing SerialRecord] library.
 
+You can also use the Serial Monitor to inspect the values that the sketch sends
+to the serial port.
+
 Things to try:
 
 - Connect a second potentiometer to the Arduino, and send the values from
@@ -106,7 +110,8 @@ This sketch pairs well with the SendSingleValue example from the [Processing
 SerialRecord] library.
 
 You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
-into the text area at the top, and press "Send".
+into the text area at the top, and press "Send". Then enter `!e` to ask the
+Arduino to send back the last values it received.
 
 ### ReceiveMultipleValues
 
@@ -121,12 +126,27 @@ should be in the range 0…1023:
 This sketch pairs well with the SendMultipleValues example from the [Processing
 SerialRecord] library.
 
-You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
+You can also interact with this sketch from the Serial Monitor. Enter `100,200`
+into the text area at the top, and press "Send". Then enter `!e` to ask the
+Arduino to send back the last values it received.
+
+### SendReceiveMultipleValues
+
+This sketch repeatedly receives two values, and send back the same values in the
+opposite order as well as their sum.
+
+(This mode of communication, where a connection is used both to send and
+receive, is called "full duplex".)
+
+This sketch pairs well with the SendReceiveMultipleValues example from the
+[Processing SerialRecord] library.
+
+You can also interact with this sketch from the Serial Monitor. Enter `100,200`
 into the text area at the top, and press "Send".
 
 ## Motivation
 
-This was intended as a replacement for the manual use of chains of:
+This library was intended as a replacement for the manual use of chains of:
 
 ```c++
 Serial.print(value1);
@@ -138,11 +158,9 @@ Serial.println();
 ```
 
 I found while teaching an introductory course physical on computing that novice
-programmers often garbled the order of values and commas when they added,
-removed, or rearranged value, and that debugging the resulting errors did not
-contribute to the learning objectives for this particular course. (The problem
-is even worse when they work from example code that optimizes for line count,
-such that the last two lines are combined to `Serial.print(value3);`.)
+programmers often garble the order of values, commas and the newline when they
+add, remove, or rearrange values. Debugging the resulting errors did not
+contribute to the learning objectives for this particular course.
 
 ## Alternatives
 

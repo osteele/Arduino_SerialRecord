@@ -13,7 +13,8 @@
   [Processing SerialRecord] library.
 
   You can also interact with this sketch from the Serial Monitor. Enter `0` or
-  `1` into the text area at the top, and press "Send".
+  `1` into the text area at the top, and press "Send". Then enter `!e` to
+  ask the Arduino to send back the last values it received.
 
   by Oliver Steele, 2020-2022
 

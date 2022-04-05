@@ -1,14 +1,15 @@
 /*
   ReceiveMultipleValues
 
-  This sketch repeatedly receives a record that contains a single value, and uses
-  it to control the builtin LED. The value should be 0 or 1.
+  This sketch repeatedly receives a record that contains a single value, and
+  uses it to control the builtin LED. The value should be 0 or 1.
 
   This sketch pairs well with the SendSingleValue example from the [Processing
   SerialRecord] library.
 
-  You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
-  into the text area at the top, and press "Send".
+  You can also interact with this sketch from the Serial Monitor. Enter
+  `100,200` into the text area at the top, and press "Send". Then enter `!e` to
+  ask the Arduino to send back the last values it received.
 
   by Oliver Steele, 2020-2022
 

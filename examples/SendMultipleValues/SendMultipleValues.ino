@@ -37,5 +37,7 @@ void loop() {
   writer[1] = sensorValue;
   writer.send();
 
-  delay(50);
+  // This delay slows down the loop. The connected computer can become sluggish
+  // if it has to receive data at too high a rate.
+  delay(10);
 }

@@ -13,6 +13,7 @@ class SerialRecord {
   SerialRecord(int count = 1)
       : size(count), values(new int[count]), m_buffer(new int[count]) {}
 
+  /** Returns the value at the given index. */
   int &get(int index = 0) {
     static int sentinel;
     if (0 <= index && index < size) {
@@ -26,6 +27,7 @@ class SerialRecord {
     }
   }
 
+  /** Sets the value at the given index. */
   int set(int index, int value) {
     if (0 <= index && index < size) {
       values[index] = value;
@@ -34,13 +36,16 @@ class SerialRecord {
     }
   }
 
+  /** Returns the first value. */
   int set(int value) { set(0, value); }
 
+  /** References the value at the given index. */
   int &operator[](int index) { return get(index); }
 
-  // receive serial data
-  void read() {
-    while (Serial.available()) {
+  /** Receive serial data. Returns true if a new record was received. */
+  bool read() {
+    bool received = false;
+    while (Serial.available() & !received) {
       char c = Serial.read();
       if (c == '\n') {
         firstLine = false;
@@ -58,6 +63,7 @@ class SerialRecord {
             // if there is the wrong number of them. This is more convenient for
             // incremental development.
             memcpy(values, m_buffer, size * sizeof values[0]);
+            received = true;
             break;
         }
         m_readState = LINE_START;
@@ -121,6 +127,7 @@ class SerialRecord {
         }
       }
     }
+    return received;
   }
 
   void reportInvalidCharacter(char *message, char c) {
