@@ -59,14 +59,16 @@ downloaded ZIP files. In that case, instead of step 2 you can move the folder
 into the Arduino/Libraries folder in your home directory, and then restart the
 Arduino IDE.
 
-The next time you start the Arduino IDE, you will find examples in the File >
-Examples > SerialRecord submenu.
+The next time you start the Arduino IDE, you will find examples in the *File >
+Examples > SerialRecord* submenu.
 
 ## Examples
 
-Once you install the library, these examples are available in the File >
-Examples > SerialRecord submenu. You can also review them
-[here](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
+Once you install the library, these examples are available in the *File >
+Examples > SerialRecord* submenu. You can also review them [on
+GitHub](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
+
+![](docs/arduino-examples.png)
 
 ### SendSingleValue
 
@@ -151,8 +153,8 @@ into the text area at the top, and press "Send".
 
 This sketch is similar to SendMultipleValues, except that it also includes
 field names in the strings that it sends. These are displayed in the Serial
-Monitor and the Serial Console, but the Processing SerialRecord library
-igonores them.
+Monitor and the Serial Console, but the [Processing SerialRecord] library
+ignores them.
 
 ## Motivation
 
@@ -182,8 +184,8 @@ binding of value positions to sensors or pin numbers.
 
 ## Acknowledgements
 
-The idea of providing this code as a library was inspired by copy-paste code
-provided to students by the NYU Shanghai IMA "Interaction Lab" course.
+The idea of providing this code as a library was inspired by code
+provided to students by the NYU Shanghai IMA "Interaction Lab" course, for them to copy and paste into their sketches.
 
 ## License
 
