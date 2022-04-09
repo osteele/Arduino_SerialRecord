@@ -35,10 +35,10 @@ mkdir -p dist
 find dist -type f -delete
 cp $project_file dist/
 
-# DRY release.sh
+# DRY dist.sh
 zip_file=dist/${name}.zip
 rm -f "$zip_file"
-zip -qr "$zip_file" docs examples library.properties LICENSE* README* *.h
+zip -qr "$zip_file" docs examples keywords.txt library.properties LICENSE* README* *.h
 
 # skip the tag if skip_tag is set
 if [ "$skip_tag" = false ]; then

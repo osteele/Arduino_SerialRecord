@@ -15,7 +15,7 @@ zip_file=dist/${name}.zip
 # DRY release.sh
 mkdir -p dist
 rm -f "$zip_file"
-zip -qr "$zip_file" docs examples library.properties LICENSE* README* *.h
+zip -qr "$zip_file" docs examples keywords.txt library.properties LICENSE* README* *.h
 
 project_file_key=${S3_DIR}/${name}.txt
 zip_key=${S3_DIR}/${name}.zip
