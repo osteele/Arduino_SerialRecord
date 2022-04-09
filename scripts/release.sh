@@ -2,6 +2,23 @@
 
 set -e
 
+skip_tag=false
+force_tag_option=
+
+# loop through all the command line arguments. set skip-tag and force_tag
+# based on the arguments.
+for arg in "$@"
+do
+    if [ "$arg" == "--skip-tag" ]; then
+        skip_tag=true
+    elif [ "$arg" == "--force-tag" ]; then
+        force_tag_option="--force"
+    fi
+done
+
+type -P ghr > /dev/null || { echo "ghr not found. Please install ghr:
+  https://github.com/tcnksm/ghr#install" >&2; exit 1; }
+
 # on macOS, requires `brew install grep`
 PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 OWNER=osteele
@@ -19,14 +36,12 @@ mkdir -p dist
 rm -f "$zip_file"
 zip -qr "$zip_file" docs examples library.properties LICENSE* README* *.h
 
-git tag -a "${tag}" -m "Release $version"
-git push origin "${tag}"
+# skip the tag if skip_tag is set
+if [ "$skip_tag" = false ]; then
+  git tag "${force_tag_option}" -a "${tag}" -m "Release $version"
+  git push "${force_tag_option}" origin "${tag}"
+fi
 
-curl \
-  -X POST \
-  -H "Accept: application/vnd.github.v3+json" \
-  https://api.github.com/repos/${OWNER}/${REPO}/releases \
-  -d "{\"tag_name\":\"${tag}\","draft":true}"
+ghr -u "${OWNER}" -r "${REPO}" -prerelease "${tag}" "${zip_file}"
 
-open dist
-open https://github.com/${OWNER}/${REPO}/releases/new
+open "https://github.com/${OWNER}/${REPO}/releases"
