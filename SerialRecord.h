@@ -78,6 +78,10 @@ class SerialRecord {
             memcpy(values, m_buffer, size * sizeof values[0]);
             received = true;
             break;
+          case COMMAND:
+          case LINE_START:
+          case SKIP_LINE:
+            break;
         }
         m_readState = LINE_START;
       } else {
@@ -137,6 +141,8 @@ class SerialRecord {
                 m_readState = SKIP_LINE;
             }
             break;
+          case SKIP_LINE:
+            break;
         }
       }
     }
@@ -183,7 +189,7 @@ class SerialRecord {
   };
   ReadState m_readState = LINE_START;
 
-  void reportInvalidCharacter(char *message, char c) {
+  void reportInvalidCharacter(char *message, int c) {
     if (firstLine) return;
 
     Serial.print(message);
