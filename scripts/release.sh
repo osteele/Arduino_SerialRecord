@@ -2,6 +2,17 @@
 
 set -e
 
+type -P ghr > /dev/null || { echo "ghr not found. Please install ghr:
+  https://github.com/tcnksm/ghr#install" >&2; exit 1; }
+
+# on macOS, requires `brew install grep`
+PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+
+OWNER=osteele
+REPO=Arduino_SerialRecord
+
+project_file=library.properties
+
 skip_tag=false
 force_tag_option=
 
@@ -16,32 +27,25 @@ do
     fi
 done
 
-type -P ghr > /dev/null || { echo "ghr not found. Please install ghr:
-  https://github.com/tcnksm/ghr#install" >&2; exit 1; }
-
-# on macOS, requires `brew install grep`
-PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
-OWNER=osteele
-REPO=Arduino_SerialRecord
-
-project_file=library.properties
 name=$(grep -oP '^name=\K.+' $project_file)
 version=$(grep -oP '^version=\K.+' $project_file)
 tag="v${version}"
 
-zip_file=dist/${name}.zip
+mkdir -p dist
+find dist -type f -delete
+cp $project_file dist/
 
 # DRY release.sh
-mkdir -p dist
+zip_file=dist/${name}.zip
 rm -f "$zip_file"
 zip -qr "$zip_file" docs examples library.properties LICENSE* README* *.h
 
 # skip the tag if skip_tag is set
 if [ "$skip_tag" = false ]; then
-  git tag "${force_tag_option}" -a "${tag}" -m "Release $version"
-  git push "${force_tag_option}" origin "${tag}"
+  git tag ${force_tag_option} -a "${tag}" -m "Release $version"
+  git push ${force_tag_option} origin "${tag}"
 fi
 
-ghr -u "${OWNER}" -r "${REPO}" -prerelease "${tag}" "${zip_file}"
+ghr -u "${OWNER}" -r "${REPO}" -prerelease "${tag}" library.properties "${zip_file}"
 
 open "https://github.com/${OWNER}/${REPO}/releases"
