@@ -10,12 +10,8 @@ PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
 project_file=library.properties
 name=$(grep -oP '^name=\K.+' $project_file)
-zip_file=dist/${name}.zip
 
-# DRY release.sh
-mkdir -p dist
-rm -f "$zip_file"
-zip -qr "$zip_file" docs examples keywords.txt library.properties LICENSE* README* *.h
+zip_file=$(./scripts/create-zip.sh)
 
 project_file_key=${S3_DIR}/${name}.txt
 zip_key=${S3_DIR}/${name}.zip

@@ -2,11 +2,10 @@
 
 set -e
 
+PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+
 type -P ghr > /dev/null || { echo "ghr not found. Please install ghr:
   https://github.com/tcnksm/ghr#install" >&2; exit 1; }
-
-# on macOS, requires `brew install grep`
-PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
 
 OWNER=osteele
 REPO=Arduino_SerialRecord
@@ -29,16 +28,9 @@ done
 
 name=$(grep -oP '^name=\K.+' $project_file)
 version=$(grep -oP '^version=\K.+' $project_file)
-tag="v${version}"
+tag=v${version}
 
-mkdir -p dist
-find dist -type f -delete
-cp $project_file dist/
-
-# DRY dist.sh
-zip_file=dist/${name}.zip
-rm -f "$zip_file"
-zip -qr "$zip_file" docs examples keywords.txt library.properties LICENSE* README* *.h
+zip_file=$(./scripts/create-zip.sh)
 
 # skip the tag if skip_tag is set
 if [ "$skip_tag" = false ]; then
@@ -46,6 +38,6 @@ if [ "$skip_tag" = false ]; then
   git push ${force_tag_option} origin "${tag}"
 fi
 
-ghr -u "${OWNER}" -r "${REPO}" -prerelease "${tag}" library.properties "${zip_file}"
+ghr -u "${OWNER}" -r "${REPO}" -prerelease "${tag}" "${zip_file}"
 
 open "https://github.com/${OWNER}/${REPO}/releases"
