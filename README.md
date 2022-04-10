@@ -3,18 +3,19 @@
 [![Arduino Lint](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml)
 [![Compile Examples](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml)
 
-Library to send and read single or multiple values to and from the serial port.
+The [SerialRecord library for Arduino](https://osteele.github.io/Arduino_SerialRecord/) sends and receive *records, containing multiple* integers, over the serial port.
 
-The library transmits the values in ASCII. Each record is a sequence of ASCII
-representations of numbers, separated by a comma and terminated by a newline.
-This is the format used by the Arduino IDE Serial Plotter tool.
+The library is intended for novice programmers: it is designed to be easy to
+use, to detect when it is used incorrectly, and to detect and report when it
+receives invalid data. Data is sent as comma-separated ASCII; this format is
+easy to view and interact with the in the Arduino Serial Monitor, and is
+compatible with the Arduino Serial Plotter.
 
-This library can be used in conjunction with the [Processing SerialRecord]
-library for [Processing](https://processing.org), but does not require it.
+The library can be used with the [SerialRecord library for Processing 4](https://osteele.github.io/Processing_SerialRecord/), but does not require it.
 
 ![](docs/screenshot.png "Screenshot")
 
-[Processing SerialRecord]: https://osteele.github.io/Processing_SerialRecord/
+[SerialRecord library for Processing 4]: https://osteele.github.io/Processing_SerialRecord/
 
 ## Design Goals
 
@@ -95,7 +96,7 @@ This sketch repeatedly sends a record that contains two values:
   potentiometer to that pin, you can control this value by moving the pot.
 
 This sketch pairs well with the RecieveMultipleValues example from the
-[Processing SerialRecord] library.
+[SerialRecord library for Processing 4] library.
 
 You can also use the Serial Monitor to inspect the values that the sketch sends
 to the serial port.
@@ -144,7 +145,7 @@ opposite order as well as their sum.
 receive, is called "full duplex".)
 
 This sketch pairs well with the SendReceiveMultipleValues example from the
-[Processing SerialRecord] library.
+[SerialRecord library for Processing 4] library.
 
 You can also interact with this sketch from the Serial Monitor. Enter `100,200`
 into the text area at the top, and press "Send".
@@ -153,7 +154,7 @@ into the text area at the top, and press "Send".
 
 This sketch is similar to SendMultipleValues, except that it also includes
 field names in the strings that it sends. These are displayed in the Serial
-Monitor and the Serial Console, but the [Processing SerialRecord] library
+Monitor and the Serial Console, but the [SerialRecord library for Processing 4] library
 ignores them.
 
 ## Motivation
