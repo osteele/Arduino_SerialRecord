@@ -5,13 +5,10 @@
 
 The [SerialRecord library for Arduino](https://osteele.github.io/Arduino_SerialRecord/) sends and receive *records, containing multiple* integers, over the serial port.
 
-The library is intended for novice programmers: it is designed to be easy to
-use, to detect when it is used incorrectly, and to detect and report when it
-receives invalid data. Data is sent as comma-separated ASCII; this format is
-easy to view and interact with the in the Arduino Serial Monitor, and is
-compatible with the Arduino Serial Plotter.
+This library is intended for novice programmers. It is designed to be easy to use, to detect when it is used incorrectly, to detect and report when it receives invalid data. Data is sent and received as comma-separated ASCII with optional field names, for ease of inspection with the Serial Monitor and for compatibility with the Serial Plotter and with Processing sketches that also use this format.
 
-The library can be used with the [SerialRecord library for Processing 4](https://osteele.github.io/Processing_SerialRecord/), but does not require it.
+The library can be used with the [SerialRecord library for Processing
+4](https://osteele.github.io/Processing_SerialRecord/), but does not require it.
 
 ![](docs/screenshot.png "Screenshot")
 
@@ -48,20 +45,12 @@ The library can be used with the [SerialRecord library for Processing 4](https:/
 
 ## Installation
 
-1. Download a ZIP archive of this repository from
-   <https://assets.osteele.com.s3.amazonaws.com/arduino/SerialRecord.zip>. Note:
-   You do not need to decompress this archive file.
+1. In the Arduino IDE, select the *Tools > Manager Libraries* menu item.
 2. In the Arduino IDE, select the "Sketch > Include Library > Add .ZIP Library…"
    menu item. Select the downloaded ZIP file.
+3. Click "Install".
 
-If you can't find the downloaded zip file but you can instead find a folder with
-the same name, your computer may be set to automatically decompress and delete
-downloaded ZIP files. In that case, instead of step 2 you can move the folder
-into the Arduino/Libraries folder in your home directory, and then restart the
-Arduino IDE.
-
-The next time you start the Arduino IDE, you will find examples in the *File >
-Examples > SerialRecord* submenu.
+![](docs/arduino-library-manager.png)
 
 ## Examples
 
