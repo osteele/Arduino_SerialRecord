@@ -21,13 +21,13 @@
 
 #include "SerialRecord.h"
 
-SerialRecord writer;
+SerialRecord writer(1);
 
 void setup() { Serial.begin(9600); }
 
 void loop() {
   int value = millis() % 1024;
-  writer.send(value);
+  writer[0] = value;
 
   // This delay slows down the loop. This can make it easier to debug the
   // program.

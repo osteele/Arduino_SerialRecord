@@ -2,8 +2,9 @@
  * serial connection. Created by Oliver Steele, 2020-2022. Available under the
  * GNU LGPL license.
  */
-#ifndef ClassRecord_h
-#define ClassRecord_h
+
+#ifndef SerialRecord_h
+#define SerialRecord_h
 
 class SerialRecord {
  public:
@@ -39,7 +40,7 @@ class SerialRecord {
     }
   }
 
-  /** Returns the first value. */
+  /** Sets the first value. */
   void set(int value) { set(0, value); }
 
   /** References the value at the given index. */
@@ -76,6 +77,10 @@ class SerialRecord {
             // incremental development.
             memcpy(values, m_buffer, size * sizeof values[0]);
             received = true;
+            break;
+          case COMMAND:
+          case LINE_START:
+          case SKIP_LINE:
             break;
         }
         m_readState = LINE_START;
@@ -136,23 +141,15 @@ class SerialRecord {
                 m_readState = SKIP_LINE;
             }
             break;
+          case SKIP_LINE:
+            break;
         }
       }
     }
     return received;
   }
 
-  void reportInvalidCharacter(char *message, char c) {
-    if (firstLine) return;
-
-    Serial.print(message);
-    Serial.print('\'');
-    Serial.print(c);
-    Serial.print("' (");
-    Serial.print(static_cast<unsigned char>(c));
-    Serial.println(")");
-  }
-
+  /** Send data to the serial port. */
   void send() {
     for (int i = 0; i < size; i++) {
       if (i > 0) {
@@ -167,10 +164,14 @@ class SerialRecord {
     Serial.println();
   }
 
+  /** Send data to the serial port. This method is a synonym for send.*/
   void send(int value) {
     set(value);
     send();
   }
+
+  /** Send data to the serial port. This method is a synonym for send.*/
+  void write() { send(); }
 
  private:
   int m_ix = 0;
@@ -187,6 +188,17 @@ class SerialRecord {
     SKIP_LINE,
   };
   ReadState m_readState = LINE_START;
+
+  void reportInvalidCharacter(char *message, int c) {
+    if (firstLine) return;
+
+    Serial.print(message);
+    Serial.print('\'');
+    Serial.print(c);
+    Serial.print("' (");
+    Serial.print(static_cast<unsigned char>(c));
+    Serial.println(")");
+  }
 };
 
-#endif  // ClassRecord_h
+#endif  // SerialRecord_h

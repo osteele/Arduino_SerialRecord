@@ -9,12 +9,12 @@ The library transmits the values in ASCII. Each record is a sequence of ASCII
 representations of numbers, separated by a comma and terminated by a newline.
 This is the format used by the Arduino IDE Serial Plotter tool.
 
-This library can be used in conjunction with the [Processing SerialRecord]
-library for [Processing](https://processing.org), but does not require it.
+This library may be used in conjunction with the [Processing SerialRecord]
+library for [Processing 4](https://processing.org), but does not require it.
 
 ![](docs/screenshot.png "Screenshot")
 
-[Processing SerialRecord]: https://osteele.github.io/Processing_SerialRecord/
+[Processing SerialRecord]: https://osteele.github.io/Processing_SerialRecord/ "SerialRecord for Processing 4"
 
 ## Design Goals
 

@@ -1,0 +1,16 @@
+# Syntax Coloring Map For SerialRecord
+
+# Datatypes (KEYWORD1)
+SerialRecord    KEYWORD1
+
+# Methods and Functions (KEYWORD2)
+read KEYWORD2
+receive KEYWORD2
+send KEYWORD2
+setFieldName KEYWORD2
+transmit KEYWORD2
+write KEYWORD2
+
+# Instances (KEYWORD2)
+
+# Constants (LITERAL1)

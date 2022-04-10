@@ -24,7 +24,7 @@
 
 #include "SerialRecord.h"
 
-SerialRecord reader;
+SerialRecord reader(1);
 
 void setup() {
   Serial.begin(9600);
@@ -33,5 +33,5 @@ void setup() {
 
 void loop() {
   reader.read();
-  digitalWrite(LED_BUILTIN, reader.get());
+  digitalWrite(LED_BUILTIN, reader[0]);
 }
