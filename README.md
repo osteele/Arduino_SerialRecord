@@ -7,12 +7,13 @@ The [SerialRecord library for Arduino](https://osteele.github.io/Arduino_SerialR
 
 This library is intended for novice programmers. It is designed to be easy to use, to detect when it is used incorrectly, to detect and report when it receives invalid data. Data is sent and received as comma-separated ASCII with optional field names, for ease of inspection with the Serial Monitor and for compatibility with the Serial Plotter and with Processing sketches that also use this format.
 
-The library can be used with the [SerialRecord library for Processing
-4](https://osteele.github.io/Processing_SerialRecord/), but does not require it.
+The library can be used with the [SerialRecord library for
+Processing](https://osteele.github.io/Processing_SerialRecord/), but does not
+require it.
 
 ![](docs/screenshot.png "Screenshot")
 
-[SerialRecord library for Processing 4]: https://osteele.github.io/Processing_SerialRecord/
+[SerialRecord library for Processing]: https://osteele.github.io/Processing_SerialRecord/
 
 ## Design Goals
 
@@ -85,7 +86,7 @@ This sketch repeatedly sends a record that contains two values:
   potentiometer to that pin, you can control this value by moving the pot.
 
 This sketch pairs well with the RecieveMultipleValues example from the
-[SerialRecord library for Processing 4] library.
+[SerialRecord library for Processing] library.
 
 You can also use the Serial Monitor to inspect the values that the sketch sends
 to the serial port.
@@ -134,7 +135,7 @@ opposite order as well as their sum.
 receive, is called "full duplex".)
 
 This sketch pairs well with the SendReceiveMultipleValues example from the
-[SerialRecord library for Processing 4] library.
+[SerialRecord library for Processing] library.
 
 You can also interact with this sketch from the Serial Monitor. Enter `100,200`
 into the text area at the top, and press "Send".
@@ -143,7 +144,7 @@ into the text area at the top, and press "Send".
 
 This sketch is similar to SendMultipleValues, except that it also includes
 field names in the strings that it sends. These are displayed in the Serial
-Monitor and the Serial Console, but the [SerialRecord library for Processing 4] library
+Monitor and the Serial Console, but the [SerialRecord library for Processing] library
 ignores them.
 
 ## Motivation
@@ -168,14 +169,20 @@ contribute to the learning objectives for this particular course.
 
 For alternatives that support a variety of transports and serialization formats
 (including higher-efficiency binary formats), browse the Communications topic of
-the Arduino library manager. Also note
-[Firmata](https://github.com/firmata/arduino), which features declarative
-binding of value positions to sensors or pin numbers.
+the Arduino library manager.
+
+In particular, note:
+
+- [Firmata](https://github.com/firmata/arduino), which features declarative
+  binding of value positions to sensors or pin numbers.
+- [VSync Library](http://ernestum.github.io/VSync/) for the Arduino platform
+  "magically" synchronizes Arduino and Processing variables.
 
 ## Acknowledgements
 
-The idea of providing this code as a library was inspired by code
-provided to students by the NYU Shanghai IMA "Interaction Lab" course, for them to copy and paste into their sketches.
+The idea of providing this code as a library was inspired by code provided to
+students by the NYU Shanghai IMA "Interaction Lab" course, for them to copy and
+paste into their sketches.
 
 ## License
 
