@@ -60,29 +60,32 @@ require it.
 
 ## Examples
 
-Once you install the library, these examples are available in the *File >
-Examples > SerialRecord* submenu. You can also review them [on
+Once this library has been installed, the following examples are available in
+the *File > Examples > SerialRecord* submenu. You can also [view the examples n
 GitHub](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
 
-Due to a bug in the Arduino IDE 2.0.0 as of October 2022, library examples may
-not appear in the AExamples menu the first time you select the File > Examples
-menu item. If the only examples listed are the "Built-in examples", simply
-release the mouse button and then select the File > Examples menu item again, in
-order to see library examples as well.
-
 ![](docs/arduino-examples.png)
+
+> Note: Due to a bug in the Arduino IDE 2.0.0 as of October 2022, library
+examples may not appear in the Examples menu, the first time you select the
+*File &gt; Examples* menu item. If the only examples listed are the "Built-in
+examples", simply release the mouse button and then select the *File &gt;
+Examples* menu item a second time, in order to see library examples as well.
 
 ### SendSingleValue
 
 This sketch repeatedly sends a record that contains a single value.
 
-The sketch pairs well with the ReceiveSingleValue example from the [Processing
-SerialRecord] library.
+The sketch pairs well with the ReceiveSingleValue example from the [SerialRecord
+library for Processing].
 
 You can also use the Serial Monitor to inspect the values that the sketch sends
 to the serial port.
 
-This sketch is no different from calling `Serial.println(value)`.
+This sketch has the same effect as calling `Serial.println(value)`. Its
+advantage is that it is simple to modify it to log a second value, in a format
+that the receiving program can reliably distinguish the first from the second
+value. (The SendMultipleValues example demonstrates this.)
 
 Things to try:
 
@@ -92,12 +95,12 @@ Things to try:
 
 This sketch repeatedly sends a record that contains two values:
 
-- The first value is the value of `millis()`, modulo 32768.
-- The second value is the analog value that is read from pin 9. If you attach a
-  potentiometer to that pin, you can control this value by moving the pot.
+1. The value of `millis()`, modulo 1000.
+2. The analog value that is read from pin 0. If you attach a potentiometer to
+  that pin, you can control this value by moving the pot.
 
 This sketch pairs well with the RecieveMultipleValues example from the
-[SerialRecord library for Processing] library.
+[SerialRecord library for Processing].
 
 You can also use the Serial Monitor to inspect the values that the sketch sends
 to the serial port.
@@ -113,8 +116,7 @@ Things to try:
 This sketch repeatedly receives a record that contains a single value, and uses
 it to control the builtin LED. The value should be 0 or 1.
 
-This sketch pairs well with the SendSingleValue example from the [Processing
-SerialRecord] library.
+This sketch pairs well with the SendSingleValue example from the [SerialRecord library for Processing].
 
 You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
 into the text area at the top, and press "Send". Then enter `!e` to ask the
@@ -130,8 +132,8 @@ should be in the range 0…1023:
 - The second value controls a buzzer attached to pin 9. If the value is 0, the
   buzzer is silenced; otherwise, it plays a tone at the specified frequency.
 
-This sketch pairs well with the SendMultipleValues example from the [Processing
-SerialRecord] library.
+This sketch pairs well with the SendMultipleValues example from the
+[SerialRecord library for Processing].
 
 You can also interact with this sketch from the Serial Monitor. Enter `100,200`
 into the text area at the top, and press "Send". Then enter `!e` to ask the
@@ -142,8 +144,8 @@ Arduino to send back the last values it received.
 This sketch repeatedly receives two values, and send back the same values in the
 opposite order as well as their sum.
 
-(This mode of communication, where a connection is used both to send and
-receive, is called "full duplex".)
+(This mode of communication, where the same connection is used both to send and
+receive data, is called "full duplex".)
 
 This sketch pairs well with the SendReceiveMultipleValues example from the
 [SerialRecord library for Processing] library.
@@ -153,14 +155,21 @@ into the text area at the top, and press "Send".
 
 ### SendFieldNames
 
-This sketch is similar to SendMultipleValues, except that it also includes
-field names in the strings that it sends. These are displayed in the Serial
-Monitor and the Serial Console, but the [SerialRecord library for Processing] library
-ignores them.
+This sketch is similar to SendMultipleValues, except that it also includes field
+names in the strings that it sends. These field names are displayed in the
+Serial Monitor and the Serial Console. The [SerialRecord library for Processing]
+library ignores them, but does read the accompanying values.
+
+Example output:
+
+```text
+millis:12,analog:113
+millis:24,analog: 115
+```
 
 ## Motivation
 
-This library was intended as a replacement for the manual use of chains of:
+This library was intended as a replacement for the manual use of seqeunces of code such as:
 
 ```c++
 Serial.print(value1);
@@ -171,10 +180,12 @@ Serial.print(value3);
 Serial.println();
 ```
 
-I found while teaching an introductory course physical on computing that novice
-programmers often garble the order of values, commas and the newline when they
-add, remove, or rearrange values. Debugging the resulting errors did not
-contribute to the learning objectives for this particular course.
+While teaching an introductory course on physical computing, I found that novice
+programmers often end up with code that fails to separate values by the
+separator character "`,`", omits the final `Serial.println()`, and/or places
+this `Serial.println()` between values within the record. This resulted in
+mysterious (to the students) failure modes. Debugging the resulting errors did
+not contribute to the learning objectives for this particular course.
 
 ## Alternatives
 
