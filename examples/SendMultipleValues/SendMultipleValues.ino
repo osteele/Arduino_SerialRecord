@@ -1,11 +1,13 @@
 /*
   SendMultipleValues
 
-  This sketch repeatedly sends a record that contains two values:
+  Reads an analog input on pin 0, and sends a record that contains two values:
 
-  - The first value is the value of `millis()`, modulo 32768.
-  - The second value is the analog value that is read from pin 9. If you attach
-    a potentiometer to that pin, you can control this value by moving the pot.
+  1. Value of `millis()`, modulo 1000.
+  2. The analog value that is read from pin 0.
+
+  If you attach a potentiometer to pin 0, you can control this value by moving
+  the pot.
 
   This sketch pairs well with the RecieveMultipleValues example from the
   Processing SerialRecord library
@@ -33,7 +35,7 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(A0);
 
-  writer[0] = millis() % 1024;
+  writer[0] = millis() % 1000;
   writer[1] = sensorValue;
   writer.send();
 

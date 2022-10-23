@@ -1,10 +1,18 @@
 /*
   SendMFieldNames
 
+  Reads an analog input on pin 0, and sends a record that contains two values:
+
+  1. Value of `millis()`, modulo 1000.
+  2. The analog value that is read from pin 0.
+
+  If you attach a potentiometer to pin 0, you can control this value by moving
+  the pot.
+
   This sketch is similar to SendMultipleValues, except that it also includes
   field names in the strings that it sends. These are displayed in the Serial
   Monitor and the Serial Console. The Processing SerialRecord library
-   <https://osteele.github.io/Processing_SerialRecord/> igonores them.
+  <https://osteele.github.io/Processing_SerialRecord/> igonores them.
 
   by Oliver Steele, 2020-2022
 
@@ -26,7 +34,7 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(A0);
 
-  writer[0] = millis() % 1024;
+  writer[0] = millis() % 1000;
   writer[1] = sensorValue;
   writer.send();
 
