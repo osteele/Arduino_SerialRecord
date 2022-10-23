@@ -23,7 +23,9 @@
 
 SerialRecord writer(1);
 
-void setup() { Serial.begin(9600); }
+void setup() {
+  Serial.begin(9600);
+}
 
 void loop() {
   int value = millis() % 1024;

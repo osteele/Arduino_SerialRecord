@@ -24,7 +24,9 @@
 SerialRecord reader(2);
 SerialRecord writer(3);
 
-void setup() { Serial.begin(9600); }
+void setup() {
+  Serial.begin(9600);
+}
 
 void loop() {
   if (reader.read()) {

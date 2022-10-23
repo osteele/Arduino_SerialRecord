@@ -1,5 +1,4 @@
 {
-  "C_Cpp.clang_format_fallbackStyle": "Google",
   "markdownlint.config": {
     "MD045": false,
   }
