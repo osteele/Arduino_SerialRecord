@@ -5,13 +5,13 @@
 
 The [SerialRecord library for Arduino](https://osteele.github.io/Arduino_SerialRecord/) sends and receive *records, containing multiple* integers, over the serial port.
 
-This library is intended for novice programmers. It is designed to be easy to use, to detect when it is used incorrectly, to detect and report when it receives invalid data. Data is sent and received as comma-separated ASCII with optional field names, for ease of inspection with the Serial Monitor and for compatibility with the Serial Plotter and with Processing sketches that also use this format.
+This library is intended for novice programmers. It is designed to be easy to use, to detect when it is used incorrectly, to detect and report when it receives invalid data. Data is sent in a format that is compatible with the Serial Montior and Serial Plotter tools: comma-separated ASCII values, with optional field names.
 
 The library can be used with the [SerialRecord library for
 Processing](https://osteele.github.io/Processing_SerialRecord/), but does not
 require it.
 
-![](docs/screenshot.png "Screenshot")
+![](docs/sketch.png "Arduino IDE with example sketch")
 
 [SerialRecord library for Processing]: https://osteele.github.io/Processing_SerialRecord/
 
@@ -27,29 +27,34 @@ require it.
   to visually inspect without tools, but it is computationally expensive to read
   and write, and requires more bandwidth than a binary representation.
 - Flexibility. All records must have the same number of values; only integers
-  are supported. This makes it possible to detect errors in code that uses the
-  library, but is not appropriate to all communications. If you need more
-  flexibility, this is not the library for you. (See the Alternatives section
-  below.)
+  are supported. These limitations make it possible to detect errors in code
+  that uses the library, but they are not appropriate for all projects. (See the
+  "Alternatives" section below.)
 
 ## Features
 
-- Send an "!e" to the sketch to send received the values array back to the serial
-  port. (The matching Processing library can do this periodically.)
-- Attempting to read an array position that is out of bounds will print an error
-  to the serial port and return the value -1.
-- If a record contains too many values or too few, and an error is printed to
-  the serial port. (The matching Processing library can relay this and other
-  errors to the Processing console.)
-- If a received line cannot be parsed as a series of integers, a warning is
-  printed to the serial port.
+- Send an "!e" to the sketch to send received the values array back to the
+  serial port. (The "SerialRecord for Processing" library can be set to do this
+  periodically.)
+- Attempting to read an array position that is out of bounds prints an error to
+  the serial port, and returns the value -1.
+- If a record contains too many values or too few, the library prints an error
+  to the serial port. (The matching "SerialRecord for Processing" library can be
+  set to automatically display this error, and other errors, to the Processing
+  console and optionally on the canvas.)
+- If a received line cannot be parsed as a series of integers, the library
+  prints a warning is printed on the serial port.
 
 ## Installation
 
-1. In the Arduino IDE, select the *Tools > Manager Libraries* menu item.
-2. In the Arduino IDE, select the "Sketch > Include Library > Add .ZIP Library…"
-   menu item. Select the downloaded ZIP file.
-3. Click "Install".
+1. In the Arduino IDE, select the *Tools > Manager Libraries* menu item. This
+   opens a new pane, "Library Manager", on the left side of the current editor
+   window.
+2. In the Library Manager pane, there is a text area with a prompt "Filter your search". Enter "serialrecord" into this text field.
+3. There should be one search result, "SerialRecord by Oliver Steele". Move the
+   mouse over this search result, in order to disclose the "Install" button as
+   shown in the screenshot.
+4. Click "Install".
 
 ![](docs/arduino-library-manager.png)
 
@@ -58,6 +63,12 @@ require it.
 Once you install the library, these examples are available in the *File >
 Examples > SerialRecord* submenu. You can also review them [on
 GitHub](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
+
+Due to a bug in the Arduino IDE 2.0.0 as of October 2022, library examples may
+not appear in the AExamples menu the first time you select the File > Examples
+menu item. If the only examples listed are the "Built-in examples", simply
+release the mouse button and then select the File > Examples menu item again, in
+order to see library examples as well.
 
 ![](docs/arduino-examples.png)
 
@@ -166,6 +177,8 @@ add, remove, or rearrange values. Debugging the resulting errors did not
 contribute to the learning objectives for this particular course.
 
 ## Alternatives
+
+For sending values, the simplest alternative is just to use `Serial.println()`.
 
 For alternatives that support a variety of transports and serialization formats
 (including higher-efficiency binary formats), browse the Communications topic of
