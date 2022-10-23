@@ -28,11 +28,10 @@ SerialRecord writer(2);
 
 void setup() {
   Serial.begin(9600);
-  pinMode(6, INPUT);
 }
 
 void loop() {
-  int sensorValue = analogRead(6);
+  int sensorValue = analogRead(A0);
 
   writer[0] = millis() % 1024;
   writer[1] = sensorValue;

@@ -18,14 +18,13 @@ SerialRecord writer(2);
 
 void setup() {
   Serial.begin(9600);
-  pinMode(6, INPUT);
 
   writer.setFieldName(0, "millis");
   writer.setFieldName(1, "analog");
 }
 
 void loop() {
-  int sensorValue = analogRead(6);
+  int sensorValue = analogRead(A0);
 
   writer[0] = millis() % 1024;
   writer[1] = sensorValue;

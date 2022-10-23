@@ -30,6 +30,7 @@ void setup() {
 void loop() {
   int value = millis() % 1024;
   writer[0] = value;
+  writer.send();
 
   // This delay slows down the loop. This can make it easier to debug the
   // program.
