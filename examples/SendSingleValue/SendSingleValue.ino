@@ -32,7 +32,8 @@ void loop() {
   writer[0] = value;
   writer.send();
 
-  // This delay slows down the loop. This can make it easier to debug the
-  // program.
+  // This delay slows down the loop, so that it runs less frequently. This can
+  // make it easier to debug the sketch, because new values are printed at a
+  // slower rate.
   delay(10);
 }

@@ -95,7 +95,7 @@ Things to try:
 
 This sketch repeatedly sends a record that contains two values:
 
-1. The value of `millis()`, modulo 1000.
+1. The value of `millis()`, modulo 1024.
 2. The analog value that is read from pin 0. If you attach a potentiometer to
   that pin, you can control this value by moving the pot.
 
@@ -107,8 +107,8 @@ to the serial port.
 
 Things to try:
 
-- Connect a second potentiometer to the Arduino, and send the values from
-  both potentiometers.
+- Connect a second potentiometer to the Arduino, and send the values from both
+  potentiometers instead of sending a value that is based on `millis()`.
 - Send the value from another sensor, such as temperature or proximity.
 
 ### ReceiveSingleValue

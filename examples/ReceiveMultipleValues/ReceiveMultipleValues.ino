@@ -36,9 +36,5 @@ void loop() {
     digitalWrite(LED_BUILTIN, LOW);
   }
 
-  if (reader[1] > 0) {
-    tone(9, reader[1]);
-  } else {
-    noTone(9);
-  }
+  tone(9, reader[1]);
 }

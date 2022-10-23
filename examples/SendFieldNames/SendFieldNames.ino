@@ -3,7 +3,7 @@
 
   Reads an analog input on pin 0, and sends a record that contains two values:
 
-  1. Value of `millis()`, modulo 1000.
+  1. Value of `millis()`, modulo 1024.
   2. The analog value that is read from pin 0.
 
   If you attach a potentiometer to pin 0, you can control this value by moving
@@ -34,11 +34,12 @@ void setup() {
 void loop() {
   int sensorValue = analogRead(A0);
 
-  writer[0] = millis() % 1000;
+  writer[0] = millis() % 1024;
   writer[1] = sensorValue;
   writer.send();
 
-  // This delay slows down the loop. This can make it easier to debug the
-  // program.
+  // This delay slows down the loop, so that it runs less frequently. This can
+  // make it easier to debug the sketch, because new values are printed at a
+  // slower rate.
   delay(10);
 }
