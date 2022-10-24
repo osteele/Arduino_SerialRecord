@@ -41,10 +41,14 @@ class SerialRecord {
   }
 
   /** Sets the first value. */
-  void set(int value) { set(0, value); }
+  void set(int value) {
+    set(0, value);
+  }
 
   /** References the value at the given index. */
-  int &operator[](int index) { return get(index); }
+  int &operator[](int index) {
+    return get(index);
+  }
 
   void setFieldName(int index, String name) {
     if (0 <= index && index < size) {
@@ -87,8 +91,14 @@ class SerialRecord {
       } else {
         switch (m_readState) {
           case LINE_START:
-            if (c == ' ' || c == '\t') break;
-            if (c == '!') {  // commands
+            // This clause handles characters that are meaningful only at the
+            // beginning of a line. It then falls through to FIELD_START (the
+            // beginning of a line is also the beginning of a field), to handle
+            // characters that don't have a special line-initial meaning.
+            if (c == ' ' || c == '\t')
+              break;         // ignore whitespace at the beginning of a line
+            if (c == '!') {  // Command prefix character. The next character is
+                             // a command.
               m_readState = COMMAND;
               break;
             }
@@ -103,7 +113,7 @@ class SerialRecord {
               break;
             }
             m_readState = IN_FIELD;
-            m_accum = 0;
+            m_accum = 0;  // initialize the field value accumulator
             // fall through
           case IN_FIELD:
             switch (c) {
@@ -112,10 +122,11 @@ class SerialRecord {
                 m_accum += c - '0';
                 // TODO: warn on overflow
                 break;
-              case ' ':
+              case ' ':  // space, tab, semicolon, and comma separate (and
+                         // therefore terminate) fields
               case '\t':
               case ';':
-              case ',':  // end of field
+              case ',':
                 m_buffer[m_ix++] = m_accum;
                 m_readState = FIELD_START;
                 break;
@@ -127,8 +138,12 @@ class SerialRecord {
             }
             break;
           case COMMAND:
+            // This clause handles characters that follow a '!' command prefix.
+            // (There is currently only one such command, "!e".)
             switch (c) {
               case 'e':
+                // Echo. Transmit back the last received values received on this
+                // SerialRecord, for debugging.
                 send();
                 m_readState = SKIP_LINE;
                 break;
@@ -171,7 +186,9 @@ class SerialRecord {
   }
 
   /** Send data to the serial port. This method is a synonym for send.*/
-  void write() { send(); }
+  void write() {
+    send();
+  }
 
  private:
   int m_ix = 0;

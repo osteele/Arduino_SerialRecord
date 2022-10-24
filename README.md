@@ -158,7 +158,8 @@ into the text area at the top, and press "Send".
 This sketch is similar to SendMultipleValues, except that it also includes field
 names in the strings that it sends. These field names are displayed in the
 Serial Monitor and the Serial Console. The [SerialRecord library for Processing]
-library ignores them, but does read the accompanying values.
+library stores them in a separate array, so that a program that uses that
+library can either process or ignore them.
 
 Example output:
 
