@@ -61,8 +61,8 @@ class SerialRecord {
 
   /** Receive serial data. Returns true if a new record was received. */
   bool read() {
-    bool received = false;
-    while (Serial.available() & !received) {
+    bool recordIsComplete = false;
+    while (Serial.available() && !recordIsComplete) {
       char c = Serial.read();
       if (c == '\n') {
         firstLine = false;
@@ -80,7 +80,7 @@ class SerialRecord {
             // if there is the wrong number of them. This is more convenient for
             // incremental development.
             memcpy(values, m_buffer, size * sizeof values[0]);
-            received = true;
+            recordIsComplete = true;
             break;
           case COMMAND:
           case LINE_START:
@@ -161,7 +161,7 @@ class SerialRecord {
         }
       }
     }
-    return received;
+    return recordIsComplete;
   }
 
   /** Send data to the serial port. */
