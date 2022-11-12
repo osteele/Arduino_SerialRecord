@@ -206,7 +206,7 @@ class SerialRecord {
   };
   ReadState m_readState = LINE_START;
 
-  void reportInvalidCharacter(char *message, int c) {
+  void reportInvalidCharacter(const char *message, int c) {
     if (firstLine) return;
 
     Serial.print(message);
