@@ -39,8 +39,9 @@ void loop() {
   writer[1] = sensorValue;
   writer.send();
 
-  // This delay slows down the loop, so that it runs less frequently. This can
-  // make it easier to debug the sketch, because new values are printed at a
-  // slower rate.
-  delay(10);
+  // This delay slows down the loop, so that it runs less frequently. This
+  // prevents it from sending data faster than a Processing sketch that runs at
+  // 60 frames per second will process it. It also makes it easier to debug the
+  // sketch, because values are received at a slower rate.
+  delay(20);
 }

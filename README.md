@@ -3,9 +3,15 @@
 [![Arduino Lint](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/arduino-lint.yml)
 [![Compile Examples](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml/badge.svg)](https://github.com/osteele/Arduino_SerialRecord/actions/workflows/compile-examples.yml)
 
-The [SerialRecord library for Arduino](https://osteele.github.io/Arduino_SerialRecord/) sends and receive *records, containing multiple* integers, over the serial port.
+The [SerialRecord library for
+Arduino](https://osteele.github.io/Arduino_SerialRecord/) sends and receive
+*records, containing multiple* integers, over the serial port.
 
-This library is intended for novice programmers. It is designed to be easy to use, to detect when it is used incorrectly, to detect and report when it receives invalid data. Data is sent in a format that is compatible with the Serial Montior and Serial Plotter tools: comma-separated ASCII values, with optional field names.
+This library is intended for novice programmers. It is designed to be easy to
+use, to detect when it is used incorrectly, to detect and report when it
+receives invalid data. Data is sent in a format that is compatible with the
+Serial Montior and Serial Plotter tools: comma-separated ASCII values, with
+optional field names.
 
 The library can be used with the [SerialRecord library for
 Processing](https://osteele.github.io/Processing_SerialRecord/), but does not
@@ -50,7 +56,8 @@ require it.
 1. In the Arduino IDE, select the *Tools > Manager Libraries* menu item. This
    opens a new pane, "Library Manager", on the left side of the current editor
    window.
-2. In the Library Manager pane, there is a text area with a prompt "Filter your search". Enter "serialrecord" into this text field.
+2. In the Library Manager pane, there is a text area with a prompt "Filter your
+   search". Enter "serialrecord" into this text field.
 3. There should be one search result, "SerialRecord by Oliver Steele". Move the
    mouse over this search result, in order to disclose the "Install" button as
    shown in the screenshot.
@@ -66,11 +73,24 @@ GitHub](https://github.com/osteele/Arduino_SerialRecord/tree/main/examples).
 
 ![](docs/arduino-examples.png)
 
+The examples are designed to interoperate with Processing sketches, in the
+[SerialRecord library for Processing] library. The [SerialRecord for Processing
+wiki](https://github.com/osteele/Processing_SerialRecord/wiki/Examples) suggests
+which example from the [SerialRecord library for Processing] library is intended
+for use with each Arduino example. (For example, the Arduino
+`ReceiveSingleValue` sketch was designed to pair with the Processing
+`SendSingleValue` sketch.)
+
+> Note: The examples that send values contain a call to `delay(20)`. This
+> prevents the Arduino from *sending* data faster than a Processing sketch that
+> is running at the default 30 frames per second can *process* it. There are
+> other ways to prevent this problem from occurring, but this is the simplest.
+
 > Note: Due to a bug in the Arduino IDE 2.0.0 as of October 2022, library
-examples may not appear in the Examples menu, the first time you select the
-*File &gt; Examples* menu item. If the only examples listed are the "Built-in
-examples", simply release the mouse button and then select the *File &gt;
-Examples* menu item a second time, in order to see library examples as well.
+> examples may not appear in the Examples menu, the first time you select the
+> *File &gt; Examples* menu item. If the only examples listed are the "Built-in
+> examples", simply release the mouse button and then select the *File &gt;
+> Examples* menu item a second time, in order to see library examples as well.
 
 ### SendSingleValue
 
@@ -116,7 +136,8 @@ Things to try:
 This sketch repeatedly receives a record that contains a single value, and uses
 it to control the builtin LED. The value should be 0 or 1.
 
-This sketch pairs well with the SendSingleValue example from the [SerialRecord library for Processing].
+This sketch pairs well with the SendSingleValue example from the [SerialRecord
+library for Processing].
 
 You can also interact with this sketch from the Serial Monitor. Enter `0` or `1`
 into the text area at the top, and press "Send". Then enter `!e` to ask the
@@ -170,7 +191,8 @@ millis:24,analog: 115
 
 ## Motivation
 
-This library was intended as a replacement for the manual use of seqeunces of code such as:
+This library was intended as a replacement for the manual use of seqeunces of
+code such as:
 
 ```c++
 Serial.print(value1);
