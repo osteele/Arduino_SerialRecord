@@ -11,6 +11,16 @@
       "group": {
         "kind": "build"
       }
+    },
+    {
+      "label": "Compile Examples",
+      "type": "shell",
+      "command": "./scripts/compile-examples.sh",
+      "problemMatcher": [],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     }
   ]
 }
